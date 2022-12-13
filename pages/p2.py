@@ -1,12 +1,23 @@
+from scipy import stats
+import scipy
 import streamlit as st
 
-left_column, right_column = st.columns(2)
-# You can use a column just like st.sidebar:
-left_column.button('Press me!')
+st.title('Calculate Binomial Distribution')
 
-# Or even better, call Streamlit functions inside a "with" block:
-with right_column:
-    chosen = st.radio(
-        'Sorting hat',
-        ("Gryffindor", "Ravenclaw", "Hufflepuff", "Slytherin"))
-    st.write(f"You are in {chosen} house!")
+
+n = ((st.text_input(" Enter Number of trials(n) : ")) ) # 10
+p = ((st.text_input("   Enter Probability of success on a single trial p (0.0 to 1.0) : ")) ) # 0.5
+x = (st.text_input("   Enter Number of successes (x)	 : "))  # 3
+
+
+if (st.button("calculate")):
+ n=float(n)
+ p=float(p)
+ x=float(x)
+ f"""
+     Binomial probability   P(X = x) : {scipy.stats.binom.pmf(x,n,p)}\n
+     Cumulative probability P(X < x) : {scipy.stats.binom.cdf(x,n,p)-scipy.stats.binom.pmf(x,n,p)}\n
+     Cumulative probability P(X<= x) : {scipy.stats.binom.cdf(x,n,p)}\n
+     Cumulative probability P(X > x) : {scipy.stats.binom.sf(x,n,p)}\n
+     Cumulative probability P(X>= x) : {scipy.stats.binom.sf(x,n,p)+scipy.stats.binom.pmf(x,n,p)}\n
+"""
